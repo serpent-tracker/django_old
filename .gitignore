@@ -1,0 +1,8 @@
+# Virtualenv and secrets
+venv
+__pycache__
+db.sqlite3
+.env
+
+# Local Django Stuff
+public/
