@@ -1,4 +1,6 @@
-# Serpent Tracker
+# Serpent Tracker 
+![Build and Test](https://github.com/serpent-tracker/serpent-tracker/workflows/Build%20and%20Test/badge.svg?branch=master)
+
 The snake tracking solution based on Django and VueJS.  Will track snake husbandry information and will have an API and frontend.
 
 # Setup
