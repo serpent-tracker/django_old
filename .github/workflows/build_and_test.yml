@@ -1,0 +1,31 @@
+name: Build and Test
+on:
+  pull_request:
+    paths-ignore:
+      - "README.md"
+      - "Makefile"
+      - "Dockerfile"
+  push:
+    paths-ignore:
+      - "README.md"
+      - "Makefile"
+      - "Dockerfile"
+
+jobs:
+  lint-testing:
+    name: Code Formatting Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install -U 'pip<20'
+        pip install -r requirements.txt
+    - name: Code Formatting Tests
+      working-directory: ${{ github.workspace }}
+      run: |
+        make lint

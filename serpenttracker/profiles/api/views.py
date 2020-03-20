@@ -2,11 +2,13 @@ from rest_framework import generics, mixins, viewsets
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import viewsets
-from rest_framework import mixins
 from profiles.models import Profile, ProfileStatus
 from profiles.api.permissions import IsOwnProfileOrReadOnly, IsOwnerOrReadOnly
-from profiles.api.serializers import ProfileSerializer, ProfileStatusSerializer, ProfileAvatarSerializer
+from profiles.api.serializers import (
+    ProfileSerializer,
+    ProfileStatusSerializer,
+    ProfileAvatarSerializer,
+)
 
 
 class AvatarUpdateView(generics.UpdateAPIView):
@@ -18,10 +20,9 @@ class AvatarUpdateView(generics.UpdateAPIView):
         return profile_object
 
 
-class ProfileViewSet(mixins.UpdateModelMixin,
-                     mixins.ListModelMixin,
-                     mixins.RetrieveModelMixin,
-                     viewsets.GenericViewSet):
+class ProfileViewSet(
+    mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet,
+):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated, IsOwnProfileOrReadOnly]
@@ -39,7 +40,6 @@ class ProfileStatusViewSet(ModelViewSet):
         if username is not None:
             queryset = queryset.filter(user_profile__user__username=username)
         return queryset
-
 
     def perform_create(self, serializer):
         user_profile = self.request.user.profile

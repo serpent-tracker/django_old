@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from profiles.models import Profile, ProfileStatus
 
+
 class ProfileSerializer(serializers.ModelSerializer):
 
     user = serializers.StringRelatedField(read_only=True)
@@ -12,7 +13,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ProfileAvatarSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Profile
         fields = ("avatar",)
@@ -24,4 +24,4 @@ class ProfileStatusSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProfileStatus
-        fields= "__all__"
+        fields = "__all__"
