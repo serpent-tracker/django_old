@@ -3,26 +3,52 @@
 
 The snake tracking solution based on Django and VueJS.  Will track snake husbandry information and will have an API and frontend.
 
-# Setup
-Ensure you have python3 and setup a venv:
+# Local Setup
+
+1. Create a `.env.dev` file based off `.env.dev.example`
 
 ```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+mv .env.dev.example .env.dev
 ```
 
-Then you can run the django migrations:
+2. Modify the `.env.dev` file to your needs.
+
+3. Build the Docker Compose setup:
 
 ```
-cd serpenttracker
-python manage.py migrate
+docker-compose build
 ```
 
-Finally you can run the server with:
+
+4. Bring up the services:
 
 ```
-python manage.py runserver
+docker-compose up -d
+```
+
+5. Run the migrations for django:
+
+```
+docker-compose exec web python manage.py migrate --noinput
+```
+
+# Production Setup
+More coming soon but for now the following will spin up nginx reverse proxy with django using wsgi with staticfiles in nginx as well.
+
+```
+docker-compose -f docker-compose.prod.yml up -d --build
+docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+```
+
+# Shell Commands
+Below are some commands you can run via the docker compose setup against the containers.
+
+## Postgres Commands
+You can get a shell to postgres via:
+
+```
+docker-compose exec db psql --username=serpenttracker --dbname=stracker
 ```
 
 # Run Tests

@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
-from profiles.api.serializers import ProfileStatusSerializer
-from profiles.models import ProfileStatus
+from profiles.api.serializers import ProfileSerializer, ProfileStatusSerializer
+from profiles.models import Profile, ProfileStatus
 
 
 class RegistrationTestCase(APITestCase):
@@ -43,8 +43,8 @@ class ProfileViewSetTestCase(APITestCase):
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_profile_detail_retrive(self):
-        response = self.client.get(reverse("profile-detail", kwargs={"pk": 1}))
+    def test_profile_detail_retrieve(self):
+        response = self.client.get(reverse("profile-detail", kwargs={"pk": 2}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["user"], "woz")
 
@@ -104,6 +104,7 @@ class ProfileStatusViewSetTestCase(APITestCase):
     def test_status_update_owner(self):
         data = {"status_content": "content updated"}
         response = self.client.put(reverse("status-detail", kwargs={"pk": 1}), data=data)
+        print(response.__dict__)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["status_content"], "content updated")
 
