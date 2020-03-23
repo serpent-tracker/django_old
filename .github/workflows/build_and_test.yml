@@ -55,6 +55,9 @@ jobs:
       - name: Test with pytest
         env:
           DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
+          ALLOWED_HOSTS: 'localhost'
+          SECRET_KEY: 'testing'
+          DEBUG: '1'
         run: |
           python serpenttracker/manage.py test
       - name: Report Coverage to Coveralls
