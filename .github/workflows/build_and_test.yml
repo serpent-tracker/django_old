@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.7
+    - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: 3.8
     - name: Install dependencies
       run: |
         python -m pip install -U 'pip<20'
@@ -40,10 +40,8 @@ jobs:
         run: docker-compose up -d
       - name: Running Migrations
         run: docker-compose exec -T web python manage.py migrate --noinput
-      - name: Ensure Git is installed for Coveralls
-        run: |
-          docker-compose exec -T web pip install git
       - name: Report Coverage to Coveralls
+        working-directory: ${{ github.workspace }}/serpenttracker
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: docker-compose exec -e COVERALLS_REPO_TOKEN -T web coveralls 
+        run: coveralls 
