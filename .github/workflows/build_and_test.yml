@@ -47,9 +47,9 @@ jobs:
       - name: Running Migrations
         run: docker-compose exec -T web python manage.py migrate --noinput
       - name: Report Coverage to Coveralls
-        working-directory: ${{ github.workspace }}/serpenttracker
+        working-directory: ${{ github.workspace }}
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
-          ls -lah
+          cd serpenttracker
           coveralls 
