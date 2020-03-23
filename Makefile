@@ -27,4 +27,4 @@ lint:
 	black --check serpenttracker
 
 tests:
-	cd serpenttracker && coverage run --source="." manage.py test
+	docker-compose up -d && docker-compose exec web python manage.py test
