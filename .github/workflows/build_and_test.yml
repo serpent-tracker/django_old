@@ -36,7 +36,7 @@ jobs:
       - name: Test with pytest
         run: |
           docker-compose up -d
-          docker-compose exec web python manage.py test
+          docker-compose exec -t web python manage.py test
 
       - name: Report Coverage to Coveralls
         env:
