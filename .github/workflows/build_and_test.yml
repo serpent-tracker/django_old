@@ -37,7 +37,7 @@ jobs:
       - name: Bring Up Compose Stack
         run: docker-compose up -d
       - name: Running Migrations
-        run: docker-compose exec web python manage.py migrate --noinput
+        run: docker-compose exec -T web python manage.py migrate --noinput
       - name: Checking Docker
         run: docker ps
       - name: Test with django tests
