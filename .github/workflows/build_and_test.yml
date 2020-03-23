@@ -40,12 +40,10 @@ jobs:
         run: docker-compose up -d
       - name: Running Migrations
         run: docker-compose exec -T web python manage.py migrate --noinput
-      - name: Checking Docker
-        run: docker ps
-      - name: Test with django tests
+      - name: Ensure Git is installed for Coveralls
         run: |
-          docker-compose exec -T web python manage.py test
+          docker-compose exec -T web pip install git
       - name: Report Coverage to Coveralls
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: docker-compose exec -e COVERALLS_REPO_TOKEN  -T web coveralls 
+        run: docker-compose exec -e COVERALLS_REPO_TOKEN -T web coveralls 
