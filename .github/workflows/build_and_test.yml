@@ -30,27 +30,20 @@ jobs:
       run: |
         make lint
   django-tests:
+    name: Django Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Bring Up Compose Stack
         run: docker-compose up -d
+      - name: Running Migrations
+        run: docker-compose exec web python manage.py migrate --noinput
       - name: Checking Docker
         run: docker ps
-      - name: Test with pytest
+      - name: Test with django tests
         run: |
           docker-compose exec -T web python manage.py test
       - name: Report Coverage to Coveralls
         env:
-          COVERALLS_PARALLEL: true
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: coveralls
-  complete_coverals:
-    needs: django-tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true    
+        run: coveralls 
