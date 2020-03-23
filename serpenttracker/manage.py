@@ -2,13 +2,14 @@
 import os
 import sys
 
-if __name__ == '__main__':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'serpenttracker.settings')
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "serpenttracker.settings")
 
     # MyProject Customization: run coverage.py around tests automatically
-    running_tests = (sys.argv[1] == 'test')
+    running_tests = sys.argv[1] == "test"
     if running_tests:
         from coverage import Coverage
+
         cov = Coverage()
         cov.erase()
         cov.start()

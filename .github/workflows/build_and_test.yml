@@ -57,7 +57,7 @@ jobs:
           DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
           DJANGO_ALLOWED_HOSTS: 'localhost'
           SECRET_KEY: 'testing'
-          DEBUG: '1'
+          DEBUG: '0'
         run: |
           python serpenttracker/manage.py test
       - name: Report Coverage to Coveralls
