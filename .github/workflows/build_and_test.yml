@@ -50,5 +50,6 @@ jobs:
         working-directory: ${{ github.workspace }}/serpenttracker
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: | 
+        run: |
+          ls -lah
           coveralls 
