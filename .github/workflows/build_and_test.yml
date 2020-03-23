@@ -44,4 +44,6 @@ jobs:
         working-directory: ${{ github.workspace }}/serpenttracker
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: coveralls 
+        run: | 
+          pip install python-coveralls==2.9.3
+          coveralls 
