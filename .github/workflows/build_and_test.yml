@@ -34,7 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install dependencies
       - name: Bring Up Compose Stack
         run: docker-compose up -d
       - name: Running Migrations
