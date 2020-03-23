@@ -34,6 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install Coveralls
+        run: pip install coveralls==1.11.1
       - name: Bring Up Compose Stack
         run: docker-compose up -d
       - name: Running Migrations
@@ -46,4 +52,4 @@ jobs:
       - name: Report Coverage to Coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: docker-compose exec -T web coveralls 
+        run: coveralls 
