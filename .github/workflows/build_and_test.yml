@@ -26,7 +26,7 @@ jobs:
         python -m pip install -U 'pip<20'
         pip install -r serpenttracker/requirements.txt
     - name: Code Formatting Tests
-      working-directory: ${{ github.workspace }}/serpenttracker
+      working-directory: ${{ github.workspace }}
       run: |
         make lint
   django-tests:
@@ -56,7 +56,7 @@ jobs:
         env:
           DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
         run: |
-          python manage.py test
+          python serpenttracker/manage.py test
       - name: Report Coverage to Coveralls
         env:
           COVERALLS_PARALLEL: true
